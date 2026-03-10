@@ -48,7 +48,6 @@ class UserController extends Controller
 
         // 2. Intento de autenticación
         if (Auth::attempt($credentials)) {
-            // 3. Regenerar sesión por seguridad tras login exitoso
             $request->session()->regenerate();
             return redirect()->intended('dashboard');
         }

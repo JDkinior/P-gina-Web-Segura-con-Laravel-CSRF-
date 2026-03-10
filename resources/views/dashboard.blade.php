@@ -8,5 +8,7 @@
         @csrf
         <button type="submit">Cerrar Sesión</button>
     </form>
+
+    
 </body>
 </html>
