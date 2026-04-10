@@ -1,32 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
-<head><title>Registro</title></head>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro | OctavoApp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f6f9;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+        .card {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background-color: #6c63ff;
+            border-color: #6c63ff;
+        }
+        .btn-primary:hover {
+            background-color: #5548c8;
+            border-color: #5548c8;
+        }
+        .form-control:focus {
+            border-color: #6c63ff;
+            box-shadow: 0 0 0 0.25rem rgba(108, 99, 255, 0.25);
+        }
+    </style>
+</head>
 <body>
-    <h1>Registro</h1>
-    
-    @if ($errors->any())
-        <div style="color: red;">
-            <ul>
-                @foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach
-            </ul>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="text-center mb-4">
+                <a href="/" class="text-decoration-none">
+                    <i class="bi bi-rocket-takeoff-fill fs-1 text-primary" style="color: #6c63ff !important;"></i>
+                    <h2 class="fw-bold mt-2 text-dark">OctavoApp</h2>
+                </a>
+            </div>
+            <div class="card">
+                <div class="card-body p-4 p-md-5">
+                    <h4 class="fw-bold text-center mb-4">Crear una cuenta</h4>
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger" role="alert">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('register.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label text-muted small fw-bold">Nombre Completo</label>
+                            <input type="text" name="name" class="form-control form-control-lg bg-light" value="{{ old('name') }}" placeholder="Ej. Juan Pérez" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-muted small fw-bold">Correo Electrónico</label>
+                            <input type="email" name="email" class="form-control form-control-lg bg-light" value="{{ old('email') }}" placeholder="tu@email.com" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-muted small fw-bold">Contraseña</label>
+                            <input type="password" name="password" class="form-control form-control-lg bg-light" placeholder="Min. 8 caracteres" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label text-muted small fw-bold">Confirmar Contraseña</label>
+                            <input type="password" name="password_confirmation" class="form-control form-control-lg bg-light" placeholder="Repite tu contraseña" required>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold">Registrarse</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-4 pt-2 border-top">
+                        <p class="text-muted mb-0">¿Ya tienes una cuenta? <a href="{{ route('login') }}" class="text-decoration-none fw-bold" style="color: #6c63ff;">Inicia Sesión</a></p>
+                    </div>
+                </div>
+            </div>
         </div>
-    @endif
+    </div>
+</div>
 
-    <form action="{{ route('register.store') }}" method="POST">
-        @csrf
-        <label>Nombre:</label><br>
-        <input type="text" name="name" value="{{ old('name') }}" required><br>
-
-        <label>Email:</label><br>
-        <input type="email" name="email" value="{{ old('email') }}" required><br>
-
-        <label>Contraseña:</label><br>
-        <input type="password" name="password" required><br>
-
-        <label>Confirmar Contraseña:</label><br>
-        <input type="password" name="password_confirmation" required><br><br>
-
-        <button type="submit">Registrarse</button>
-    </form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
